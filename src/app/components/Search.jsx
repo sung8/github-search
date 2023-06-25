@@ -5,10 +5,21 @@ import { Input, Button } from '@/app/chakra';
 const Search = () => {
     const [query, setQuery] = useState('')
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
-      alert('You searched for query');
-    }
+      if (!query) return;
+      try {
+        const res = await fetch(`https://api.github.com/users/${query}`);
+        const data = await res.json();
+        console.log(data);
+        console.log("data is here");
+        if (data.message === "Not found") {
+          return; 
+        }
+      } catch (error) {
+
+      }
+    };
   return (
     <form onSubmit={handleSubmit}>
         <Input 
