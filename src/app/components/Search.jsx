@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from 'react';
-import { Input, Button } from '@/app/chakra';
+import { Input, Button, useToast } from '@/app/chakra';
 
 const Search = () => {
     const [query, setQuery] = useState('')
-
+    const toast = useToast(); 
     const handleSubmit = async (e) => {
       e.preventDefault();
       if (!query) return;
@@ -13,11 +13,23 @@ const Search = () => {
         const data = await res.json();
         console.log(data);
         console.log("data is here");
-        if (data.message === "Not found") {
-          return; 
+        if (data.message) {
+          return toast({
+            title: "Error",
+            description: data.message === "Not Found" ? "User not found" : data.message,
+            status: "error",
+            duration: 3000,
+            isClosable: true
+          }) 
         }
       } catch (error) {
-
+        toast({
+          title: "Error",
+          description: error.message,
+          status: "error",
+          duration: 3000,
+          isClosable: true
+        })
       }
     };
   return (
