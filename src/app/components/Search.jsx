@@ -2,17 +2,17 @@
 import React, { useState } from 'react';
 import { Input, Button, useToast } from '@/app/chakra';
 
-const Search = () => {
+const Search = ({setUserData, setLoading}) => {
     const [query, setQuery] = useState('')
     const toast = useToast(); 
     const handleSubmit = async (e) => {
       e.preventDefault();
       if (!query) return;
+      setLoading(true);
+      setUserData(null);
       try {
         const res = await fetch(`https://api.github.com/users/${query}`);
         const data = await res.json();
-        console.log(data);
-        console.log("data is here");
         if (data.message) {
           return toast({
             title: "Error",
@@ -22,6 +22,7 @@ const Search = () => {
             isClosable: true
           }) 
         }
+        setUserData(data);
       } catch (error) {
         toast({
           title: "Error",
@@ -29,7 +30,9 @@ const Search = () => {
           status: "error",
           duration: 3000,
           isClosable: true
-        })
+        });
+      } finally {
+        setLoading(false);
       }
     };
   return (
