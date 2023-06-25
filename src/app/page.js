@@ -1,9 +1,10 @@
-import { Button } from '@/app/chakra';
+import { Button, Container } from '@/app/chakra';
+import Navbar from './components/Navbar';
 
 export default function Home() {
   return (
-    <main>
-      <Button colorScheme='blue'>Button</Button>
-    </main>
-  )
+    <Container maxW="container.lg">
+      <Navbar />
+    </Container>
+  );
 }
