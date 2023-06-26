@@ -15,7 +15,7 @@ export default function Home() {
       <Text fontSize={"2xl"} textAlign={"center"} my={4}>Search Users on GitHub</Text>
       <Search setUserData={(res) => setUserData(res)} setLoading={setLoading}/>
 
-      <UserProfile setUserData={setUserData}/>
+      {userData && <UserProfile userData={userData}/>}
     </Container>
   );
 }
