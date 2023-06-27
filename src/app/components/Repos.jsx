@@ -49,35 +49,49 @@ const Repos = ({ reposUrl }) => {
         </Flex>
       )}
 
-      {repos.map((repo) => (
-        <Flex
-          key={repo.id}
-          padding={4}
-          bg={"whiteAlpha.200"}
-          _hover={{ bg: "whiteAlpha.400" }}
-          my={4}
-          px={10}
-          gap={4}
-          borderRadius={4}
-          transition={"all 0.3s ease"}
-          justifyContent={"space-between"}
-          alignItems={"center"}>
-          <Flex flex={1} direction={"column"}>
-            <Link href={repo.html_url} target={"_blank"} fontSize={"md"} fontWeight={"bold"}>
-              {repo.name}
-            </Link>
-            <Badge
-              fontSize={"0.7em"}
-              colorScheme={"whatsapp"}
-              w={"min-content"}
-              textAlign={"center"}
-              px={1}
-              mt={1}>
-              Language: {repo.language || "Not Specified"}
-            </Badge>
+      {repos
+        .sort((a, b) => b.stargazers_count - a.stargazers_count)
+        .map((repo) => (
+          <Flex
+            key={repo.id}
+            padding={4}
+            bg={"whiteAlpha.200"}
+            _hover={{ bg: "whiteAlpha.400" }}
+            my={4}
+            px={10}
+            gap={4}
+            borderRadius={4}
+            transition={"all 0.3s ease"}
+            justifyContent={"space-between"}
+            alignItems={"center"}>
+            <Flex flex={1} direction={"column"}>
+              <Link href={repo.html_url} target={"_blank"} fontSize={"md"} fontWeight={"bold"}>
+                {repo.name}
+              </Link>
+              <Badge
+                fontSize={"0.7em"}
+                colorScheme={"whatsapp"}
+                w={"min-content"}
+                textAlign={"center"}
+                px={1}
+                mt={1}>
+                Language: {repo.language || "Not Specified"}
+              </Badge>
+            </Flex>
+
+            <Flex flex={1} gap={4} ml={6}>
+              <Badge fontSize={"0.9em"} colorScheme="orange" flex={1} textAlign={"center"}>
+                Stars: {repo.stargazers_count}
+              </Badge>
+              <Badge fontSize={"0.9em"} colorScheme="pink" flex={1} textAlign={"center"}>
+                Fork: {repo.forks_count}
+              </Badge>
+              <Badge fontSize={"0.9em"} colorScheme="cyan" flex={1} textAlign={"center"}>
+                Watchers: {repo.watchers_count}
+              </Badge>
+            </Flex>
           </Flex>
-        </Flex>
-      ))}
+        ))}
     </>
   );
 };
