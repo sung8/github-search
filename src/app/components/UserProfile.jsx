@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Avatar, Button, Flex, VStack, Badge, Text, Box } from "@/app/chakra";
+import Repos from "@/app/components/Repos";
 
 const UserProfile = ({ userData }) => {
   return (
@@ -72,6 +73,7 @@ const UserProfile = ({ userData }) => {
           </Box>
         </VStack>
       </Flex>
+      <Repos reposUrl={userData.repos_url} />
     </>
   );
 };
