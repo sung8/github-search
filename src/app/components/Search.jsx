@@ -50,6 +50,7 @@ const Search = ({ setUserData, setLoading }) => {
       name: data.name,
       url: data.html_url
     });
+    localStorage.setItem("github-users", JSON.stringify(users));
   };
 
   return (
