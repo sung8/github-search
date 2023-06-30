@@ -13,6 +13,7 @@ import {
   Box,
   Link
 } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 const HistoryModal = ({ isOpen, onClose }) => {
   const [searchHistory, setSearchHistory] = useState([]);
@@ -59,10 +60,12 @@ const HistoryModal = ({ isOpen, onClose }) => {
                     size={"sm"}
                     color="black"
                     bg="whatsapp.200"
+                    px={2}
                     borderRadius={4}
                     _hover={{ textDecoration: "none", bg: "whatsapp.300" }}>
                     Visit
                   </Link>
+                  <DeleteIcon color={"red.400"} onClick={() => {}} />
                 </Flex>
               </Flex>
             ))}
