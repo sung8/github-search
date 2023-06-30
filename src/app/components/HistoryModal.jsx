@@ -11,16 +11,36 @@ import {
   Flex,
   Avatar,
   Box,
-  Link
+  Link,
+  useToast
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 
 const HistoryModal = ({ isOpen, onClose }) => {
   const [searchHistory, setSearchHistory] = useState([]);
+  const toast = useToast();
+
   useEffect(() => {
     const users = JSON.parse(localStorage.getItem("github-users")) || [];
     setSearchHistory(users);
   }, []);
+
+  const handleDeleteUser = (userId) => {
+    const users = JSON.parse(localStorage.getItem("github-users")) || [];
+    const userToDelete = users.find((user) => user.id === userId);
+    if (userToDelete) users.splice(users.indexOf(userToDelete), 1);
+
+    localStorage.setItem("github-users", JSON.stringify(users));
+    setSearchHistory(users);
+    toast({
+      title: "Success",
+      description: "User deleted successfully",
+      status: "success",
+      duration: 3000,
+      isClosable: true
+    });
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -65,7 +85,7 @@ const HistoryModal = ({ isOpen, onClose }) => {
                     _hover={{ textDecoration: "none", bg: "whatsapp.300" }}>
                     Visit
                   </Link>
-                  <DeleteIcon color={"red.400"} onClick={() => {}} />
+                  <DeleteIcon color={"red.400"} onClick={() => handleDeleteUser(user.id)} />
                 </Flex>
               </Flex>
             ))}
